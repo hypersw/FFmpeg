@@ -590,7 +590,9 @@ static int gdigrab_read_packet(AVFormatContext *s1, AVPacket *pkt)
         if (s1->flags & AVFMT_FLAG_NONBLOCK) {
             return AVERROR(EAGAIN);
         } else {
-            av_usleep(delay);
+            //av_usleep(delay);
+            SwitchToThread();
+            av_log(s1, AV_LOG_WARNING, "Skipping a sleep of size %d.\n", (int)delay);            
         }
     }
 
